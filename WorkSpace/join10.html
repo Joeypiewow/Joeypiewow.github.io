@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>또회원가입</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .join_container {
+            width: 800px;
+            margin: 30px auto 30px auto;
+            padding: 20px;
+
+
+
+        }
+
+        .margin {
+
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="board_container" style=" border : 15px solid gold ; width : 900px; padding : 20px; margin : 20px auto">
+        <div class="shadow rounded border border-warning" style="padding : 10px">
+            <div style="color : darkorange">
+                <h1 style="text-align:right ; font-weight: bold;">🌻회원가입🌻</h1>
+
+                <div style="border :3px solid yellow ; width : px "></div>
+
+                <div class="row g-3 align-items-center margin">
+
+                    <div class="col-auto">
+                        <label for="id" style="width : 80px" class="col-form-label">아이디</label>
+                    </div>
+
+                    <div class="col-auto">
+                        <input type="text" id="id" placeholder="아이디 입력" class="form-control" />
+                    </div>
+
+                    <div class="col-auto">
+                        <button class="btn btn-outline-warning">중복확인</button>
+                    </div>
+
+                </div>
+
+                <div class="row g-3 align-items-center margin">
+
+                    <div class="col-auto">
+                        <label for="pw" style="width : 80px" class="col-form-label">비밀번호</label>
+                    </div>
+
+                    <div class="col-auto">
+                        <input type="password" id="pw" placeholder="비밀번호 입력" class="form-control" />
+                    </div>
+
+                    <div class="col-auto">
+                        <span class="form-text"> 8자리 이상 입력</span>
+                    </div>
+
+                </div>
+
+                <div class="row g-3 align-items-center margin">
+
+                    <div class="col-auto">
+                        <label for="pw1" style="width : 80px" class="col-form-label">비번 확인</label>
+                    </div>
+
+                    <div class="col-auto">
+                        <input type="password" id="pw1" placeholder="비밀번호 확인" class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="row g-3 align-items-center margin">
+
+                    <div class="col-auto">
+                        <label for="username" style="width : 80px" class="col-form-label">이름</label>
+                    </div>
+
+                    <div class="col-auto">
+                        <input type="text" id="username" placeholder="이름" class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="row g-3 align-items-center margin">
+
+                    <div class="col-auto">
+                        <label for="email" style="width : 80px" class="col-form-label">E-mail</label>
+                    </div>
+
+                    <div class="col-auto">
+                        <input type="text" id="email" placeholder="이메일" class="form-control" />
+                    </div>
+
+                    <div class="col-auto">
+                        <span class="form-text"> @ </span>
+                        <select id="email1">
+                            <option value="naver.com">naver.com</option>
+                            <option value="naver.com">네이버만써라</option>
+                            <option value="naver.com">귀찮다</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row g-3 align-items-center margin">
+
+                    <div class="col-auto">
+                        <label for="age" style="width : 80px" class="col-form-label">나이</label>
+                    </div>
+
+                    <div class="col-auto">
+                        <input type="text" id="age" placeholder="나이" class="form-control" />
+                    </div>
+
+                </div>
+
+                <a href="home10.html" class="btn btn-outline-warning">홈으로</a>
+                <a href="home.html" class="btn btn-outline-warning">메인</a>
+
+                <button class="btn btn-outline-warning " onclick="JoinAction()">회원가입</button>
+
+
+
+            </div>
+            <script>
+                function JoinAction() {
+                    
+                
+                    if (id.value.length < 4)
+                    {
+                        alert('아이디는 4자리 이상 입력');
+                    return false;
+                }
+
+                if (pw.value.length < 8) {
+                    alert('비번은 8자리 이상 입력');
+                    return false;
+                }
+
+                if (pw.value !== pw1.value) {
+                    alert('패스워드는 동일하게 입력');
+                    return false;
+                }
+
+                if (username.value.length < 1) {
+                    alert('이름 입력 요망');
+                    return false;
+                }
+
+                if (email.value.length < 1) {
+                    alert('이메일 입력 요망');
+                    return false;
+                }
+
+                if (age.value.length < 1) {
+                    alert('나이 입력 요망');
+                    return false;
+                }
+
+
+
+
+            }
+
+
+            </script>
+        </div>
+</body>
+
+</html>

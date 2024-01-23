@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인3</title>
+</head>
+
+<body>
+    <h1 style="color : green">🍀LOGIN🍀</h1>
+
+    <input type="text" id="id" placeholder="id" autofocus /><br />
+    <input type="password" id="pw" placeholder="password" /><br />
+    <button onclick="loginAction()">login</button>
+    <a href="memberlist2.html"><button>memberlist2</button></a>
+    <a href="home.html"><button>main</button></a>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        async function loginAction() {
+            const url = 'http://ihongss.com:13000/api/member/login.json?_id=${id.value}';
+            const headers = { "Content-Type": "application/json" };
+            const body = {_id:id.value, password:pw.value};
+
+            const { data } = await axios.post(url, body, {headers});
+            console.log(data);
+            
+            if(data.status===200){
+                alert('login succeed'); 
+                // 세션 스토리지에 로그인 정보 저장
+                sessionStorage.setItem("token", data.token);
+                // 주소 바꾼다음 엔터 누르면 페이지 이동
+                window.location.href="memberlist2.html";
+            }
+            else {
+                alert ('login failed'); 
+            }
+        };
+    </script>
+
+</body>
+
+</html>

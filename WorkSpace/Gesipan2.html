@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판2</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .board_container {
+            width: 800px;
+            padding: 30px;
+            margin: 0px auto 0px auto;
+        }
+
+        .MARGIN {
+            margin: 20px;
+        }
+
+        .a {
+            text-decoration: none;
+            color: red;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="board_container shadow rounded border border-warning">
+        <H1 style="text-align: center; color : gold; font-weight: bold">⚠NEW 게시판2⚠</H1>
+
+        <div class="row-g3 d-flex justify-content-between margin">
+            <div class="col-auto">
+                <div class="btn-group">
+                    <a href="home10.html" class="btn btn-warning ">홈으로</a>
+                    <a href="write2.html" class="btn btn-warning">글쓰기</a>
+                    <a href="home.html" class="btn btn-warning ">메인으로</a>
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <form action="Gesipan2.html" method="get">
+                    <div class="rol-g-1">
+                        <div class="col-auto">
+                            <input type="hidden" name="page" value ="1" />
+                            <input type="text" name="text" class="form-control" placeholder="검색어 입력"  />
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-outline-warning" onclick="click()"> 검색</button>
+                        </div>
+                    
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="margin">
+        <table class="table table-warning" style="text-align : center">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>날짜</th>
+                </tr>
+            </thead>
+               <tbody id="tbody">
+                    
+                </tbody>
+        </table>
+
+        <div class="row-g3 margin d-flex justify-content-center">
+            <div class="col-auto">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="pagination-demo"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+    <script>
+        //http://127.0.0.1:5500/Gesipan2.html
+        //http://127.0.0.1:5500/Gesipan2.html?page=1&text=
+        const urlPath = new URL(window.location.href);
+        const urlParams = urlPath.searchParams;
+        let page = urlParams.get("page");
+        let text = urlParams.get("text");
+        if (page === null) {
+            page = 1;
+        }
+
+        if (text === null) {
+            text = '';
+        }
+
+
+        async function boardList() {
+            const url = `http://ihongss.com:13000/api/board/select.json?page=${page}&text=${text}&cnt=10`;
+            const headers = { "Content-Type ": "application/json" };
+            const { data } = await axios.get(url, { headers });
+            console.log(data);
+
+
+            let rows = data.rows; //[{},{},{},{}...{}]
+            for (let tmp of rows) {
+                //tbody에 추가
+                tbody.innerHTML +=
+                    `<tr style ='cursor:pointer;' onclick ='nextPage(${tmp._id})'>` +
+                    `<td>${tmp._id}</td>` +
+                    `<td>${tmp.title.substr(0,30)}</td>` +
+                    `<td>${tmp.writer}</td>` +
+                    `<td>${tmp.hit}</td>` +
+                    `<td>${tmp.regdate2}</td>` +
+                    `</tr>`;
+            }
+
+            let pages = Math.floor(data.total / 10) + 1;
+            $('#pagination-demo').twbsPagination({
+                totalPages: pages,
+                visiblePages: 5,
+                first: '처음',
+                prev: '이전',
+                last: '끝',
+                next: '다음',
+                startPage: Number(page),
+                initiateStartPageClick: false,
+                onPageClick: function (event, page) {
+                    window.location.href = `Gesipan2.html?page=${page}&text=${text}`;
+                }
+            });
+        }
+        boardList();
+
+        function nextPage(no) {
+            console.log(no);
+            window.location.href = `board2.html?no=${no}`;
+        }
+    </script>
+    </div>
+</body>
+
+</html>

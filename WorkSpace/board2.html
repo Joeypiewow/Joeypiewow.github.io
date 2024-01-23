@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>적당히써라</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        .board_container {
+            WIDTH: 800PX;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .margin {
+            margin: 5px;
+
+        }
+    </style>
+
+
+    </div>
+</head>
+
+<body>
+    <div>
+
+        <div class="board_container">
+            <div class="shadow rounded border border-warning;" style="background-color:lemonchiffon;">
+
+                <h1 style="font-weight: bold; margin:20px; color:blue">404 NOT FOUND</h1>
+
+
+                <a href="home10.html"> <button class="btn btn-outline-warning">홈으로</button></a>
+                <a href="home.html"> <button class="btn btn-outline-warning ">메인으로</button></a>
+                <a href="Gesipan2.html"> <button class="btn btn-outline-warning ">목록으로</button></a>
+
+
+                <div class="row g-3 align-items-center">
+                    <div class="row g-3 align-items-center margin">
+
+                        <div class="col-auto">
+                            <label style="width : 80px; color : orange" class="col-form-label">글번호</label>
+                        </div>
+
+                        <div class="col-auto">
+                            <label id="_id"></label>
+                        </div>
+
+                    </div>
+
+                    <div class="row g-3 align-items-center">
+                        <div class="row g-3 align-items-center margin">
+
+                            <div class="col-auto">
+                                <label style="width : 80px; color : orange" class="col-form-label">조회수</label>
+                            </div>
+
+                            <div class="col-auto">
+                                <label id="hit"></label>
+                            </div>
+
+                        </div>
+
+                        <div class="row g-3 align-items-center">
+                            <div class="row g-3 align-items-center margin">
+
+                                <div class="col-auto">
+                                    <label style="width : 80px; color : orange" class="col-form-label">날짜</label>
+                                </div>
+
+                                <div class="col-auto">
+                                    <label id="regdate2"></label>
+                                </div>
+
+                            </div>
+
+                            <div class="row g-3 align-items-center">
+                                <div class="row g-3 align-items-center margin">
+
+                                    <div class="col-auto">
+                                        <label style="width : 80px; color : orange" class="col-form-label">제목</label>
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <label id="title"></label>
+                                    </div>
+
+                                </div>
+
+                                <div class="row g-3 align-items-center margin">
+
+                                    <div class="col-auto">
+                                        <label style="width : 80px; color : orange" class="col-form-label">작성자</label>
+                                    </div>
+
+                                    <div class="col-auto">
+                                        <label id="writer"></label>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="row g-3 align-items-center margin">
+
+                                    <div class="col-auto">
+                                        <label style="width : 80px; color : orange" class="col-form-label">내용</label>
+                                    </div>
+
+                                    <div class="col-auto">
+
+                                        <label id="content"></label>
+                                    </div>
+
+                                    <div style=" word-break : break-all ;">
+
+                                        <button class="btn btn-outline-warning " onclick="prevPage()">◀이전글</button>
+                                        <button class="btn btn-outline-warning " onclick="nextPage()">다음글▶</button>
+                                        <button class="btn btn-outline-warning " onclick="deletePage()">삭제🗑</button>
+                                        <button class="btn btn-outline-warning " onclick="updatePage()">글수정</button>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script>
+
+                    // 주소창에 ?=no=번호 -> 번호 알아야함
+                    const urlPath = new URL(window.location.href);
+                    const urlParams = urlPath.searchParams;
+                    const no = urlParams.get('no');
+                    console.log(no);
+                    // 번호 전달 -> 해당하는 내용 서버에받기
+
+
+                    // 함수와 관련없이공통으로 사용하는 영역 <지역함수 이런거 아니묘 
+                    let prev = 0;
+                    let next = 0;
+
+
+                    async function selectBoardOne() {
+                        const url = `http://ihongss.com:13000/api/board/selectone.json?no=${no}`;
+                        const headers = { "Content-Type": "application/json" };
+                        const { data } = await axios.get(url, { headers });
+                        console.log(data);
+
+                        // 다른 함수에서 사용하기 위해서 공통변수 값 보관 
+                        prev = data.prevNo;
+                        next = data.nextNo;
+
+
+                        _id.innerHTML += data.result._id;
+                        title.innerHTML += data.result.title;
+                        writer.innerHTML += data.result.writer;
+                        content.innerHTML += data.result.content;
+                        regdate2.innerHTML += data.result.regdate2;
+                        hit.innerHTML += data.result.hit;
+
+                    }
+                    selectBoardOne();
+
+                    function prevPage() {
+                        //window.location.href = `board2.html?no=${prev}`;
+                        if (prev === 0) {
+                            alert('Previous page is gone...');
+                        }
+                        else {
+                            window.location.href = `board2.html?no=${prev}`;
+                        }
+
+                    }
+
+                    function nextPage() {
+                        //window.location.href = `board2.html?no=${next}`;
+
+                        if (next === 0) {
+                            alert('Next page is gone...');
+                        }
+                        else {
+                            window.location.href = `board2.html?no=${next}`;
+                        }
+
+                    }
+
+                    async function deletePage() {
+                        if (confirm('Should I delete it?')) {
+                            const url = `http://ihongss.com:13000/api/board/delete.json?no=${no}`;
+                            const headers = { "Content-Type": "application/json" }
+                            const { data } = await axios.delete(url, { headers: headers, data :{no: no }});
+                        console.log(data);
+                        if (data.status === 200) {
+                            alert('Delete Successful');
+                            window.location.href = `Gesipan2.html`;
+                        }
+                    }
+                    }
+                    
+                    function updatePage() {
+                        window.location.href = `boardupdate2.html?no=${no}`;
+                    }
+
+                </script>
+
+</body>
+
+</html>

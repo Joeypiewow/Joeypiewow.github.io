@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글수정</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <style>
+        .board_container {
+
+            width: 724px;
+            padding: 30px;
+            margin: 0px auto 0px auto;
+
+        }
+
+        .margin {
+            margin-bottom: 10px;
+            margin-left: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="font-weight: bold; color:orange">글 수정</h1>
+    <div>
+        글번호(수정X) <input type="text" id="_id" readonly /> <br />
+        글제목(수정O) <input type="text" id="title" /> <br />
+        글내용(수정O) <div id="editor" style="width : 800px;"></div><br />
+
+
+        작성자(수정O) <input type="text" id="writer" /><br />
+        조회수(변경X)<input type="text" id="hit" readonly /> <br />
+        날짜(변경X)<input type="text" id="regdate2" readonly /> <br />
+        <button onclick="handleUpdate()">변경</button>
+        <button onclick="pageContent()">게시글상세화면</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script>
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+
+            ['clean', 'image']
+        ];
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+
+        // ===================================
+
+        // no의 값 받아옴
+
+        // 주소창에 ?=no=번호 -> 번호 알아야함
+        const urlPath = new URL(window.location.href);
+        const urlParams = urlPath.searchParams;
+        const no = urlParams.get('no');
+        console.log(no);
+        // 서버에서  no에 해당하는 값 가져오기
+
+
+        //게시글 수정 데이터 받아오기 
+        async function SelectBoardOne() {
+            const url = `http://ihongss.com:13000/api/board/selectone.json?no=${no}`;
+            const headers = { "Content-Type": "application/json" };
+            const { data } = await axios.get(url, { headers });
+            console.log(data);
+
+            // 가져온 값을 위 태그에 적절하게 추가 <이게무슨소리야 ㅅㅂ
+            _id.value = data.result._id;
+            title.value = data.result.title;
+            writer.value = data.result.writer;
+            hit.value = data.result.hit;
+            regdate2.value = data.result.regdate2;
+            quill.pasteHTML(data.result.content);
+        }
+        SelectBoardOne();
+
+        // 게시글 변경
+        async function handleUpdate() {
+            const url = `http://ihongss.com:13000/api/board/update.json?no=${_id.value}`;
+            const headers = { "Content-Type": "application/json" };
+            const body = { title: title.value, content: quill.root.innerHTML, writer: writer.value };
+            const { data } = await axios.put(url, body, { headers });
+            console.log(data);
+
+            // 성공하면 알림표시 및 수정된 게시글로 이동
+            if (data.status === 200) {
+                alert('MODIFYING...');
+                alert('SUCCESS!');
+                window.location.href = `board2.html?no=${no}`;
+            }
+
+        }
+        handleUpdate();
+
+        // 게시글 상세화면 이동
+        function pageContent() {
+            window.location.href=`board2.html?no=${no}`;
+        }
+
+    </script>
+</body>
+
+</html>

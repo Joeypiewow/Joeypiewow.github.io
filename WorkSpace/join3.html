@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입33</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <style>
+        .board_container {
+
+            width: 724px;
+            padding: 30px;
+            margin: 0px auto 0px auto;
+
+        }
+
+        .margin {
+            margin-bottom: 10px;
+            margin-left: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="board_container">
+        <div class="shadow rounded border border-success" style="background-color: mintcream;">
+
+            <h1 style="text-align:center; font-weight: bold; margin:20px; color:green">🍀JOIN🍀</h1>
+            <div style="border: 3px solid yellowgreen; width: 500px" class="margin"></div>
+            <div style ="padding : 20px;">
+                <input type="text" placeholder="ID" autofocus / id="id" onkeyup="idcheckAction()">
+                <label id="idcheck" style="color : yellowgreen">중복확인 </label><br />
+
+                <input type="password" placeholder="PASSWORD" id="pw" /><br />
+                <input type="password" placeholder="PASSWORD CHECK" id="pwch" /><br />
+
+                <input type="text" placeholder="NAME" id="uname" /><br />
+
+                <input type="text" placeholder="AGE" id="age" /><br />
+
+                <input type="text" placeholder="E-MAIL" id="email" />
+                <label>@</label>
+
+                <select id="email2">
+                    <option>naver.com</option>
+                    <option>gmail.com</option>
+                </select></br> </br>
+
+                <button onclick="joinAction()">회원가입</button>
+                <a href="memberlist2.html"><button>회원목록</button></a>
+                <a href="home.html"><button>메인</button></a>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <script>
+           
+           async function idcheckAction() {
+            if(id.value.length > 0) {
+                const url = `http://ihongss.com:13000/api/member/idcheck.json?_id=${id.value}`;
+                const headers = {"Content-Type":"application/json"};
+                const { data } = await axios.get(url, {headers});
+                console.log('data => ', data);
+                if(data.result === 1) {
+                    idcheck.innerHTML = '사용불가';
+                }
+                else if(data.result === 0) {
+                    idcheck.innerHTML = '사용가능';
+                }
+            }
+            else {
+                idcheck.innerHTML = '중복확인';
+            }
+        }
+
+
+
+            async function joinAction() {
+                //유효성검사 생략
+                const url = 'http://ihongss.com:13000/api/member/join.json?_id=${id.value}';
+                const headers = { "Content-Type": "application/json" };
+                const body = {
+                    _id: `${id.value}`,
+                    password: `${pw.value}`,
+                    email: `${email.value}@${email2.value}`,
+                    age: Number(`${age.value}`),
+                    name: `${uname.value}`,
+                }
+
+                const { data } = await axios.post(url, body, { headers });
+                console.log('result =>', data);
+                if (data.status === 200) {
+                    alert('회원가입 되었습니다.');
+                    window.lecation.href = "memberlist2.html";
+                }
+            }
+
+
+        </script>
+</body>
+
+</html>

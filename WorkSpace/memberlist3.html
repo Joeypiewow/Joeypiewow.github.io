@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멤버리스트3</title>
+</head>
+<body>
+    <div>
+        <h1 style ="color : deepskyblue"> 멤버리스트3</h1>
+        <table border=1 ; style="color :deepskyblue">
+            <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>나이</th>
+                    <th>이메일</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbody"></tbody>
+
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+    
+
+
+        async function memberList() {
+            const url = 'http://ihongss.com:13000/api/member/select.json?page=1&text=&cnt=10';
+            const headers = { "Content-Type": "application/json" };
+            const { data } = await axios.get(url, { headers });
+            //console.log(window);
+            console.log('memberList', data);
+            if (data.status === 200) { //받은 데이터가 200이면
+                let arr = data.rows; // arr 안에 rows의 데이터값 넣어서 넣어서
+                console.log(arr); // 출력
+
+                for (let tmp of arr) {
+                    tbody.innerHTML +=
+                        `<tr>` +
+                        `<td>${tmp._id}</td>` +
+                        `<td>${tmp.name}</td>` +
+                        `<td>${tmp.age}</td>` +
+                        `<td>${tmp.email}</td>` +
+                        `<td>${tmp.regdate2}</td>` +
+                        `</tr>`;
+                }
+            }
+        }
+
+        memberList(); //함수직접호출. 사용자의 액션 필요X 
+
+        </script>
+
+</body>
+</html>

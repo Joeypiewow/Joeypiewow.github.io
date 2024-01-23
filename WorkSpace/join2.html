@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입222</title>
+</head>
+
+<body>
+    <h1>회원가입</h1>
+    <hr />
+
+    아이디<input type="text" id="userid"><br />
+
+    비밀번호<input type="password" id="userpw"><br />
+    비밀번호 확인<input type="password" id="userpw1"><br />
+
+    이메일<input type="text" id="useremail">
+    <select id ="email1">
+        <option>에엥</option>
+        <option>naver.com</option>
+    </select> <br />
+
+    나이<input type="text" id="userage"><br />
+
+    성별<input type="radio" name="gender" /> 남
+    <input type="radio" name="gender" checked /> 여<br />
+
+    이름<input type="text" id="username">
+
+    관심분야<input type="checkbox" name"habit" /> 집 갈때
+    <input type="checkbox" name"habit" /> 약국 들러서
+    <input type="checkbox" name"habit" /> 스트렙실사가기<br />
+
+
+    <button onclick="JoinAction()">회원가입</button>
+
+    <script>
+        function JoinAction() {
+            if (userid.value.length < 1) {
+                alert('아이디 입력ㄱ');
+                id.focus();
+                return false;
+            }
+
+            if (userpw.value.length < 1) {
+                alert('비번 입력plz');
+                id.focus();
+                return false;
+            }
+
+            if (useremail.value.length < 1) {
+                alert('이메일 입력좀');
+                id.focus();
+                return false;
+            }
+
+            if (userage.value.length < 1 || Number(userage.value) > 150) {
+                alert('나이입력좀요제발');
+                id.focus();
+                return false;
+            }
+
+            if (username.value.len < 1 ) {
+                alert('이름!!!!!');
+                id.focus();
+                return false;
+            }
+
+            if(userpw1.value !== userpw.value)
+            {
+                alert('비번 틀림');
+                userp1.focus();
+                return false;
+            }
+
+            if(email1.value === '에엥')
+            {
+                alert('이메일고르라고');
+        
+                return false;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

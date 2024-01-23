@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입1</title>
+    <link href="css/style.css" rel="stylesheet" / >
+<style>
+    /* .class-"container" */ 
+        .container {
+            display : block;
+            width:800px;
+            border:8px solid #ff00c8;
+            padding : 20px;
+            margin: 0px auto;
+        }
+
+        .text{
+            display : inline-block;
+            width: 100px;
+    text-align:left;}
+
+    .margin{
+        margin-bottom:8px;
+    }
+
+    </style>
+    
+</head>
+<body>
+<div class = "container">
+ <div><h1>🎀✨💛회원가입💛✨🎀</h1></div>
+<div style="width:500px; border:3px solid#ff00c8; margin-bottom:8px""></div>
+
+
+    <div class="margin">
+        <label class = "text">아이디</label>
+        <input type="text" placeholder="아이디 입력"/>
+    </div>
+
+    <div class="margin">
+        <label class = "text">암호</label>
+        <input type="password" placeholder="암호 입력"/>
+    </div>
+
+    <div class="margin">
+        <label class = "text">나이</label>
+        <input type="number" placeholder="나이 입력"/>
+    </div>
+
+    <div class="margin">
+        <label class = "text">성별</label> 
+        <input type="radio" name="gender" /> 남 
+        <input type="radio" name="gender" checked/> 여
+    </div>
+
+    <div class="margin">
+        <label class = "text">이메일</label> 
+        <input type="text"placeholder="이메일 입력"/> @ 
+        <select id = "useremail">
+            <option>naver.com</option>
+           
+        </select>
+    </div>
+
+    <div class="margin">
+        <label class ="text">관심분야</label>
+        <input type = "checkbox" name"habit" /> 집
+        <input type = "checkbox" name"habit" /> 가고
+        <input type = "checkbox" name"habit" /> 싶다
+    
+    </div>
+    
+    <div class="margin">
+        <label class ="text">자기소개</label>
+        <textarea rows ="6" placeholder = "집에가고싶어" /></textarea>
+
+    </div>
+
+    <div class="margin">
+        <label class="text">이미지</label>
+        <input type="file" />
+    </div>
+
+    
+    <div class="margin">
+        <label class="text">생년월일</label>
+        <input type="date" />
+    </div>
+    <div style="width:500px; border:1px solid#ff00c8; margin-bottom:8px""></div>
+
+    <div class="margin">
+        <label class="text">회원가입</label>
+        <button>회원가입</button>
+        <a href = "home.html"><button>홈으로</button></a>
+    </div>
+
+</div>
+</div>
+
+
+
+
+</body>
+</html>

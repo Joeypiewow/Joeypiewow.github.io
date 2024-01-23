@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>짭로그인2</title>
+</head>
+<body>
+    <div>
+        <input type ="text" id="userid" />
+        <input type ="password" id="userpw" />
+        <button onclick="loginAction()">로그인</button>
+    </div>
+
+    <script>
+
+        function loginAction()
+        { // 아이디입력값 가져와서 보관
+            let uid = userid.value; 
+
+            if(uid.length < 3) {  // 아이디가 3자 이하라면
+                alert('아이디는 3자 이상!'); // 알람 출력
+                return false; // 함수 종료
+            }
+
+            let upw = userpw.value;
+
+            if (upw.length < 3)
+            { 
+                alert ('비번도 3자 이상');
+                return false;
+            }
+
+            alert('실제 로그인 가능')
+
+        }
+
+            function text() {}
+
+    </script>
+</body>
+</html>

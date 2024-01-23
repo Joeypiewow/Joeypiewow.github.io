@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보변경</title>
+</head>
+<body>
+    <h1 style ="color: coral;"> 정보변경 </h1>
+    <div>
+    <button>정보변경</button> </div>
+
+    <div>
+    이름<input type="text" id="username"><br />
+
+    나이<input type="text" id="userage"><br />
+
+    이메일<input type="text" id="useremail"> @
+    <select id ="email1">
+        <option>에엥</option>
+        <option>naver.com</option><br />
+
+    <script>
+        //데이터 불러왔다고 가정 (object)
+        let data = {username: '가나다', useremail: '1@naver.com', userage: 20}; 
+        // 서버에서 받은 한 명의 정보 출력
+        console.log(data); 
+        // 데이터 속에서 필요한 정보만 뽑아내기
+        console.log(data.username);
+        console.log(data.useremail);
+        console.log(data.userage);
+
+        //태그에 필요한 정보추가
+        username.value = data.username[0];
+        useremail.value = data.useremail.split("@")[0];
+        email1.value = data.useremail.split("@")[1];
+        userage.value = data.userage;
+    </script>
+
+</div>
+</body>
+</html>

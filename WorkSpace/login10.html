@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인2</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .login_container {
+            width: 700px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .margin {
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login_container shadow rounded border border-warning"  style ="color : orange">
+
+        <h1 style="text-align: right; color:gold; font-style: italic; font-weight: bold;">💛LOGIN💛</h1>
+        <hr />
+
+        <div class="row g-3 align-items-center margin">
+
+            <div class="col-auto">
+                <label for="id" style="width : 80px" class="col-form-label">아이디</label>
+            </div>
+
+            <div class="col-auto">
+                <input type="text" id="id" placeholder="아이디 입력" class="form-control" />
+            </div>
+
+            <div class="col-auto">
+                <span class="form-text"> 4자 이상 입력하세용</span>
+            </div>
+
+        </div>
+
+        <div class="row g-3 align-items-center margin">
+            <div class="col-auto">
+                <label for="pw" style="width : 80px" class="col-form-label">비밀번호</label>
+            </div>
+
+            <div class="col-auto margin">
+                <input type="password" id="pw" placeholder="비밀번호 입력" class="form-control" />
+            </div>
+
+            <div class="col-auto">
+                <span class="form-text"> 대소문자,특수기호 포함 8글자 이상 </span>
+            </div>
+
+        </div>
+
+
+        <div class="row g-3 align-items-center margin">
+            <div class="col-auto">
+                <label style="width:50px;"></label>
+                <button class="btn btn-outline-warning" ; onclick="LoginAction()">로그인</button>
+                <a href="home10.html" class="btn btn-outline-warning">홈으로</a>
+            </div>
+
+        </div>
+
+        <script>
+            function LoginAction() {
+                if(id.value.length <4)
+                {
+                    alert('아이디 4자 이상 입력');
+                    return false;
+                }
+    
+                if(pw.value.length <8)
+                {
+                    alert('비밀번호 8글자 이상 입력');
+                    return false;
+                }
+            }
+
+        </script>
+    </div>
+
+
+</body>
+
+</html>

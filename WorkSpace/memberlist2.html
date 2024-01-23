@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멤버리스트</title>
+
+
+</head>
+
+<body>
+
+    <div id="div1">
+        <h3 label>로그인 전 </h3></label>
+        <br />
+        <a href="login3.html"><button>로그인</button></a>
+        <a href="logout3.html"><button>로그아웃</button></a>
+        <a href="home.html"><button>메인</button></a>
+    </div>
+    <div id="div2">
+        <h3 label>로그인 후 </h3></label>
+        <a href="join3.html"><button>회원가입</button></a>
+        <a href="update3.html"><button>회원정보변경</button></a>
+        <a href="updatepw3.html"><button>비밀번호변경</button></a>
+        <a href="home.html"><button>메인</button></a>
+
+    </div>
+    <hr />
+    <div>
+        <table border=1 ; style="color :green">
+            <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>나이</th>
+                    <th>이메일</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbody"></tbody>
+
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        //저장소에서 토큰 읽어봄
+        // 왜냐 로그인인지 아웃인지 구분할라고 
+        //띠발쥰내집에가고십다
+
+        let token = sessionStorage.getItem('token');
+        if (token === null) {
+            //과거 로그인 기록 X
+            div1.style.display = "block";
+            div2.style.display = "none";
+        }
+        else {
+            //과거 로그인 기록 O
+            div1.style.display = "none";
+            div2.style.display = "block";
+        }
+        console.log(token);
+
+
+        async function memberList() {
+            const url = 'http://ihongss.com:13000/api/member/select.json?page=1&text=&cnt=10';
+            const headers = { "Content-Type": "application/json" };
+            const { data } = await axios.get(url, { headers });
+            //console.log(window);
+            console.log('memberList', data);
+            if (data.status === 200) { //받은 데이터가 200이면
+                let arr = data.rows; // arr 안에 rows의 데이터값 넣어서 넣어서
+                console.log(arr); // 출력
+
+                for (let tmp of arr) {
+                    tbody.innerHTML +=
+                        `<tr>` +
+                        `<td>${tmp._id}</td>` +
+                        `<td>${tmp.name}</td>` +
+                        `<td>${tmp.age}</td>` +
+                        `<td>${tmp.email}</td>` +
+                        `<td>${tmp.regdate2}</td>` +
+                        `</tr>`;
+                }
+            }
+        }
+
+        memberList(); //함수직접호출. 사용자의 액션 필요X 
+    </script>
+
+</body>
+
+</html>
